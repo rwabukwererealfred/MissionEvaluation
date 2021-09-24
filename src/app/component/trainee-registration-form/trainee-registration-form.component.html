@@ -1,0 +1,232 @@
+<div class="wrapper" style="margin-left: 15px;">
+    <app-header-component></app-header-component>
+    <app-sidebar></app-sidebar>
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Trainee Registration Form</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                
+                <li class="breadcrumb-item active">Trainee Registration Form</li>
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+      <div class="alert alert-primary" role="alert" *ngIf="success">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          Well Successfull Registered
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="fail">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                 failed: {{message}}
+          </div>
+  
+      <mat-tab-group mat-align-tabs="end">
+        <mat-tab label="Trainee Registration" *ngIf="role =='ADVISOR'">
+            <section class="content">
+                <div class="container-fluid">
+                  <!-- SELECT2 EXAMPLE -->
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">Trainee Registration info</h3>
+      
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-6">
+                          <div class="form-group has-feedback">
+                            <label>National ID</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user-circle-o"></i></span>
+                              </div>
+                              <input type="text" class="form-control" placeholder="National ID"
+                              [(ngModel)]="trainee.nationalId">
+                            </div>
+      
+                          </div>
+      
+                          <!-- /.form-group -->
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-md-6">
+      
+                          <div class="form-group has-feedback">
+                            <label>First Name</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-address-book-o"></i></span>
+                              </div>
+                              <input type="text" class="form-control" placeholder="First Name" 
+                              [(ngModel)]="trainee.firstName">
+                            </div>
+      
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+      
+                          <div class="form-group has-feedback">
+                            <label>Last Name</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                              </div>
+                              <input type="text" class="form-control" placeholder="Last Name"
+                              [(ngModel)] ="trainee.lastName">
+                            </div>
+      
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-6">
+      
+                          <div class="form-group has-feedback">
+                            <label>Phone Number</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                              </div>
+                              <input type="text" class="form-control" placeholder="Phone Number"
+                              [(ngModel)]="trainee.phoneNumber">
+                            </div>
+      
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="button" class="btn btn-primary" value="Register" style="width: 100%;" (click)="registerTrainee()" />
+                          </div>
+                        
+                        
+                      </div>
+                      
+                    </div>
+      
+                  </div>
+                </div>
+      
+              </section>
+        </mat-tab>
+        <mat-tab label="Trainee List">
+          <section class="content">
+            <div class="row">
+              <div class="col-12">
+                  <div class="card card-primary">
+                      
+                      <div class="card-header">
+                          <h3 class="card-title">Trainee List</h3>
+          
+                          <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                          </div>
+                        </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-9">
+                              <div class="form-group" style="width: 60%;">
+                                  <input type="text" class="form-control" placeholder="Search...">
+                                </div>
+                          </div>
+                          
+                        </div>
+                          
+                          <table class="table datatable">
+                              <thead>
+                                  <tr>
+                                    <th>National ID</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Phone Number</th>
+                                    
+                                      
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let trainee of trainees">
+                                    <td>{{trainee.nationalId}}</td>
+                                    <td>{{trainee.firstName}}</td>
+                                    <td>{{trainee.lastName}}</td>
+                                    <td>{{trainee.phoneNumber}}</td>
+                                  </tr>
+                              </tbody>
+                             
+                          </table> 
+                         
+                      </div>
+                  </div>
+                  <!-- END DEFAULT DATATABLE -->
+              </div>
+            </div>
+          </section>
+        </mat-tab>
+        <mat-tab label="Trainee Comment">
+          <section class="content">
+            <div class="row">
+              <div class="col-12">
+                  <div class="card card-primary">
+                      
+                      <div class="card-header">
+                          <h3 class="card-title">Trainee Comment</h3>
+          
+                          <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                          </div>
+                        </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-9">
+                              <div class="form-group" style="width: 60%;">
+                                  <input type="text" class="form-control" placeholder="Search...">
+                                </div>
+                          </div>
+                          
+                        </div>
+                          
+                          <table class="table datatable">
+                              <thead>
+                                  <tr>
+                                    <th>National ID</th>
+                                    <th>Names</th>
+                                    <th>Phone Number</th>
+                                    <th>Comment</th>
+                                    
+                                      
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                  <tr *ngFor="let comment of traineeComments">
+                                    <td>{{comment.trainee.nationalId}}</td>
+                                    <td>{{comment.trainee.firstName}} {{comment.trainee.lastName}}</td>
+                                    <td>{{comment.trainee.phoneNumber}}</td>
+                                    <td [innerHTML]="comment.comment">{{comment.comment}}</td>
+                                  </tr>
+                              </tbody>
+                             
+                          </table> 
+                         
+                      </div>
+                  </div>
+                  <!-- END DEFAULT DATATABLE -->
+              </div>
+            </div>
+          </section>
+        </mat-tab>
+  
+      </mat-tab-group>
+    </div>
+  
+    <!-- /.content-wrapper -->
+    <app-footer-component></app-footer-component>
+  </div>

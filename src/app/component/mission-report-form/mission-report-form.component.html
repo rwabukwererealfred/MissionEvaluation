@@ -1,0 +1,199 @@
+<div class="wrapper" style="margin-left: 15px; height: 100%;">
+  <app-header-component></app-header-component>
+  <app-sidebar></app-sidebar>
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Mission Report Form</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              
+              <li class="breadcrumb-item active">Mission Report Form</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+    <div class="alert alert-primary" role="alert" *ngIf="success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+           well successful sent
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="failed">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+               failed: {{message}}
+              </div>
+
+    <section class="content">
+      <div class="row">
+        <div class="col-12">
+          <div class="card card-primary">
+
+            <div class="card-header">
+              <h3 class="card-title">Mission Report</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group has-feedback">
+                    <label>Sent To</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user-circle-o"></i></span>
+                      </div>
+                      <select class="form-control" name="sendTo" [(ngModel)]="employeeId">
+                        <option label="Select Employee" selected></option>
+                        <option *ngFor="let emp of employees" value="{{emp.natinalityID}}">
+                          {{emp.firstName}} {{emp.lastName}} ({{emp.role.name}})
+                        </option>
+
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group has-feedback">
+                    <label>Subject</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user-circle-o"></i></span>
+                      </div>
+                      <select class="form-control" name="missionObjectif" [(ngModel)]="missionReport.missionObjectif">
+                        <option label="Select Subject" selected></option>
+                        <option *ngFor="let obj of missionObjectives">
+                          {{obj.subject}}
+                        </option>
+
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group has-feedback">
+                    <label>File</label>
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-file"></i></span>
+                      </div>
+                      <input type="file" data-parsley-trigger="change" required="" autocomplete="off"
+                        class="form-control" (change)="fileChangeEvent($event)" accept=".pdf" >
+                    </div>
+
+                  </div>
+
+
+                </div>
+                <div class="col-md-1">
+                </div>
+
+                <div class="col-md-7">
+                  <button type="button" class="btn btn-primary" style="width: 60%;" (click)="sendReport()">
+                    Submit</button><br />
+                  <br /><br />
+                  <table class="table datatable">
+                    <thead>
+                      <tr>
+                        <th>Mission Title</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Description</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>{{mission.mission?.title}}</td>
+                        <td>{{mission.mission?.startDate | date: "dd-MMM-yyyy"}}</td>
+                        <td>{{mission.mission?.endDate | date: "dd-MMM-yyyy" }}</td>
+                        <td>{{mission.mission?.description }}</td>
+
+                      </tr>
+
+                    </tbody>
+                  </table>
+
+
+                </div>
+
+
+                <!-- /.col -->
+              </div>
+
+              <div class="form-group has-feedback">
+                <label>Description</label>
+                <div class="input-group">
+                  <quill-editor [(ngModel)]="longString" [bounds]="'self'" [maxLength]="500" #noteInput="ngModel">
+
+                  </quill-editor>
+                </div>
+
+
+              </div><br />
+              <span style="color: red;" *ngIf="!noteInput.valid">
+                Maximun lenght is 500</span>
+              <br />
+              
+
+            </div>
+          </div>
+         
+                <div class="card card-primary" style="width: 80%;">
+      
+                  <div class="card-header">
+                    <h3 class="card-title">Mission Report List</h3>
+      
+                    <div class="card-tools">
+                      <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                      <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                    </div>
+                  </div>
+                  <div class="card-body">
+          <table class="table datatable">
+              <thead>
+                <tr>
+                  <th>Subject</th>
+                  <th>Report Date</th>
+                  <th>Reported To</th>
+                  <th>Advisor Comment</th>
+                 
+                  <th>File</th>
+                  <th>Description</th>
+
+
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let report of reportList">
+                    <td>{{report.missionObjectif}}</td>
+                    <td>{{report.sendDate | date:'dd-MMM-yyyy'}}</td>
+                    <td>{{report.employee.firstName}} {{report.employee.lastName}} ({{report.employee.role.name}})</td>
+                    <td [innerHTML]="report.advisorComment">{{report.advisorComment}}</td>
+                    
+                    <td *ngIf="report.file != null">
+                      <button type="button" class="btn btn-primary" (click)="readFile(report.file)">
+                        <i class="fa fa-download"></i>
+                      </button>
+                    </td>
+                    <td> 
+                      <button type="button" class="btn btn-success" (click)="openDropDiaolog(report)"> View</button>
+                    </td>
+                </tr>
+
+              </tbody>
+            </table>
+          </div>
+            </div>
+          <!-- END DEFAULT DATATABLE -->
+        </div>
+      </div>
+    </section>
+  </div>
+
+
+  <!-- /.content-wrapper -->
+  <app-footer-component></app-footer-component>
+</div>

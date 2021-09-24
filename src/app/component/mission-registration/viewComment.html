@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Mission Objectives details</h2>
+<mat-dialog-content class="mat-typography">
+    
+        
+         <div class="alert alert-secondary" [innerHTML]="missionComment">
+                {{missionComment}}
+             </div>
+         
+    
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    <button mat-button (click)="dialogRef.close('close')">CLOSE</button>
+</mat-dialog-actions>

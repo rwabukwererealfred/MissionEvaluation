@@ -1,0 +1,15 @@
+<h2 mat-dialog-title>Description Report</h2>
+<mat-dialog-content class="mat-typography">
+    <form>
+        
+       <div class="alert alert-secondary" [innerHTML]="comment">
+          {{comment}}
+       </div>
+        
+       
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    
+    <button mat-button (click)="dialogRef.close('close')">Close</button>
+</mat-dialog-actions>

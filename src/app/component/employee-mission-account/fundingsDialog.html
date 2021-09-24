@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Fundings Details</h2>
+<mat-dialog-content class="mat-typography">
+    <form>
+        
+        <table class="table datatable">
+            <thead>
+                <tr>
+                  <th>Title</th>
+                  <th>price</th>
+                
+                    
+                </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let fund of fundings">
+                  <td>{{fund.title}}</td>
+                  <td>{{fund.price}} RWF</td>
+              </tr>
+             
+          </tbody>
+        </table>
+        
+       
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+    
+    <button mat-button (click)="dialogRef.close('close')">Close</button>
+</mat-dialog-actions>

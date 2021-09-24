@@ -1,0 +1,78 @@
+
+    <div class="register-box" style="width: 50%; background-color:dodgerblue; height: 100%;" >
+        <div class="register-logo">
+            <a href="#"><b style="color: white;">Online Mission Evaluation</b></a>
+        </div>
+    
+        <div class="card" style="height: 100%">
+                <div class="alert alert-primary" role="alert" *ngIf="success">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                           well successful sent
+                        </div>
+                        <div class="alert alert-danger" role="alert" *ngIf="fail">
+                                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                               failed: {{message}}
+                              </div>
+            <div class="card-body register-card-body">
+                <p class="login-box-msg">Please Send Comment if you were attend the mission/Training</p>
+    
+               
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group has-feedback">
+                                <span class="fa fa-user form-control-feedback">National ID</span>
+                                <input type="text" class="form-control" placeholder="National ID" [(ngModel)]="traineeID">
+                                
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                                <div class="form-group has-feedback">
+                                        <span class="fa fa-user form-control-feedback"> Mission</span>
+                        <select class="form-control" name="mission" [(ngModel)]="missionId">
+                            <option label="Select mission" selected hidden value="0"></option>
+                            <option *ngFor="let mission of missions" [value]="mission.id">{{mission.title}}</option>
+                            
+                          </select>
+                          </div>
+                        </div>
+                        
+                    </div>
+                    <div class="row" >
+                        <div class="col-md-10">
+                                <div class="form-group has-feedback">
+                                        <label>Description</label>
+                                        <div class="input-group">
+                                          <quill-editor  [bounds]="'self'" [maxLength]="500"  style="height: 100%;" #noteInput="ngModel"
+                                          [(ngModel)]="longString" >
+                        
+                                          </quill-editor>
+                                        </div>
+                        
+                        
+                                      </div>
+                        </div>
+                        
+    
+                    </div>
+                  
+                    <div class="social-auth-links text-center">
+                            
+                             <input type="button" class="btn btn-block btn-primary" value="send" (click)="sendComment()"/>
+                              
+                          </div>
+                        
+    
+               
+    
+                <a href="/login" class="text-center" routerLink="/login">I have arleady having account</a>
+            </div>
+            <!-- /.form-box -->
+        </div><!-- /.card -->
+    </div>
+
+    <!-- jQuery -->
+    <script src="../assets/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- iCheck -->
+    <script src="../assets/plugins/iCheck/icheck.min.js"></script>

@@ -1,0 +1,255 @@
+<div class="wrapper" style="margin-left: 15px;">
+    <app-header-component></app-header-component>
+    <app-sidebar></app-sidebar>
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Mission Account</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                
+                <li class="breadcrumb-item active">Mission Account</li>
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+      <div class="alert alert-primary" role="alert" *ngIf="success">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+             well successful closed
+          </div>
+          <div class="alert alert-danger" role="alert" *ngIf="fail">
+                  <button type="button" class="close" data-dismiss="alert">&times;</button>
+                 failed: {{message}}
+          </div>
+  
+      <mat-tab-group mat-align-tabs="end">
+        <mat-tab label="New Mission" >
+            <section class="content">
+                <div class="row">
+                  <div class="col-12">
+                      <div class="card card-primary">
+                          
+                          <div class="card-header">
+                              <h3 class="card-title">New Mission List</h3>
+              
+                              <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                              </div>
+                            </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-9">
+                                  <div class="form-group" style="width: 60%;">
+                                      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="filterTerm">
+                                    </div>
+                              </div>
+                              <div class="col-md-3">
+                                
+                              <div class="d-flex flex-row-reverse bd-highlight mb-2">
+                                  
+                                  <div class="p-2 bd-highlight">
+                                    <select (change)="onTableSizeChange($event)" class="custom-select">
+                                      <option *ngFor="let size of tableSizes" [ngValue]="size">
+                                        {{ size }}
+                                      </option>
+                                    </select>
+                                  </div>
+                                </div>
+                                </div>
+                            </div>
+                              
+                              <table class="table datatable">
+                                  <thead>
+                                      <tr>
+                                          <th>Mission Title</th>
+                                          <th>Start Date</th>
+                                          <th>End Date</th>
+                                          <th>Description</th>
+                                          <th>Trainee</th>
+                                          <th>Mission Details</th>
+                                          <th>Report</th>
+                                          <th *ngIf="role =='ADVISOR'">Evaluate</th>
+                                         
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <tr *ngFor="let mission of newMissionList | filter:filterTerm | paginate : {
+                                        itemsPerPage: tableSize,
+                                        currentPage: page,
+                                        totalItems: count
+                                      }; ">
+                                          <td>{{mission.mission.title}}</td>
+                                          <td>{{mission.mission.startDate | date: "dd-MMM-yyyy"}}</td>
+                                          <td>{{mission.mission.endDate | date: "dd-MMM-yyyy"}}</td>
+                                          <td>{{mission.mission.description}}</td>
+                                          <td><a href="/traineeForm" [routerLink]="['/traineeForm', mission.mission.id]">
+                                            <i class="fa fa-user"></i> Trainees</a></td>
+                                          <td>
+                                            <button type="button" class="btn btn-primary" title="Fundings" 
+                                            (click)=" openFundingDiaolog(mission)">
+                                                <i class="fa fa-gift"></i>
+                                            </button>&nbsp;
+                                            <button class="btn btn-success" title="Mission Objectives"
+                                            (click)="openObjectiveDiaolog(mission)">
+                                              <i class="fa fa-trophy"></i>
+                                          </button>
+                                        </td>
+                                        <td>
+                                            <button type="button" class="btn btn-secondary" [routerLink]="['/missionReport', mission.id]"
+                                            title="send report" *ngIf="role =='EMPLOYEE'">
+                                                <i class="fa fa-plus-square"></i>
+                                            </button>&nbsp;
+                                            <button type="button" class="btn btn-secondary" [routerLink]="['/viewMissionReport', mission.id]"
+                                            title="view report" *ngIf="role =='ADVISOR'">
+                                              <i class="fa fa-cog"></i>
+                                          </button>&nbsp;
+                                          
+                                           
+                                        </td>
+                                        <td>
+                                          &nbsp;
+                                            <button type="button" class="btn btn-primary" [routerLink]="['/evaluationForm', mission.id]"
+                                            title="Evaluate Mission" *ngIf="role =='ADVISOR'">
+                                              <i class="fa fa-sitemap"></i>
+                                          </button>
+                                        </td>
+                                        
+                                         
+                                      </tr>
+                                     
+                                  </tbody>
+                              </table> 
+                              <div class="d-flex justify-content-center">
+                                  <pagination-controls 
+                                    previousLabel="Prev" 
+                                    nextLabel="Next" 
+                                    (pageChange)="onTableDataChange($event)">
+                                  </pagination-controls>
+                              </div>
+                          </div>
+                      </div>
+                      <!-- END DEFAULT DATATABLE -->
+                  </div>
+                </div>
+              </section>
+        </mat-tab>
+        <mat-tab label="Closed Mission">
+          <section class="content">
+            <div class="row">
+              <div class="col-12">
+                  <div class="card card-primary">
+                      
+                      <div class="card-header">
+                          <h3 class="card-title">Experied Mission List</h3>
+          
+                          <div class="card-tools">
+                            <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                            <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                          </div>
+                        </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-md-9">
+                              <div class="form-group" style="width: 60%;">
+                                  <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="filterTerm">
+                                </div>
+                          </div>
+                          <div class="col-md-3">
+                            
+                          <div class="d-flex flex-row-reverse bd-highlight mb-2">
+                              
+                              <div class="p-2 bd-highlight">
+                                <select (change)="onTableSizeChange($event)" class="custom-select">
+                                  <option *ngFor="let size of tableSizes" [ngValue]="size">
+                                    {{ size }}
+                                  </option>
+                                </select>
+                              </div>
+                            </div>
+                            </div>
+                        </div>
+                          
+                          <table class="table datatable">
+                              <thead>
+                                  <tr>
+                                    <th>Mission Title</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
+                                    <th>Description</th>
+                                    <th>HR Comment</th>
+                                    <th>Trainee</th>
+                                    <th>Evaluation</th>
+                                    <th style="text-align: center;">Mission Details</th>
+                                      
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let mission of experiedMissionList | filter:filterTerm | paginate : {
+                                  itemsPerPage: tableSize,
+                                  currentPage: page,
+                                  totalItems: count
+                                }; ">
+                                    <td>{{mission.mission.title}}</td>
+                                    <td>{{mission.mission.startDate | date: "dd-MMM-yyyy"}}</td>
+                                    <td>{{mission.mission.endDate | date: "dd-MMM-yyyy"}}</td>
+                                    <td>{{mission.mission.description}}</td>
+                                    <td [innerHTML]="mission.mission.hrComment">{{mission.mission.hrComment}}</td>
+                                    <td><a href="/traineeForm" [routerLink]="['/traineeForm', mission.mission.id]">
+                                      <i class="fa fa-user"></i> Trainees</a></td>
+                                  
+                                    <td>
+                                      <input *ngIf ="mission.mission.evaluationPercentage > 80" type="button" 
+                                      class="btn btn-primary" value="Excellent" style="width: 100%;">
+
+                                      <input *ngIf ="mission.mission.evaluationPercentage <= 80 && mission.mission.evaluationPercentage >= 65 " type="button" 
+                                      class="btn btn-info" value="Very Good" style="width: 100%;">
+
+                                      <input *ngIf ="mission.mission.evaluationPercentage <= 64 && mission.mission.evaluationPercentage >= 50 " type="button" 
+                                      class="btn btn-secondary" value="Good" style="width: 100%;">
+
+                                      <input *ngIf ="mission.mission.evaluationPercentage < 50" type="button" 
+                                      class="btn btn-danger" value="Fair" style="width: 100%;">
+                                    </td>
+                                    <td style="text-align: center;">
+                                      <button type="button" class="btn btn-primary" title="Fundings" 
+                                      (click)=" openFundingDiaolog(mission)">
+                                          <i class="fa fa-gift"></i>
+                                      </button>&nbsp;
+                                      <button class="btn btn-success" title="Mission Objectives"
+                                      (click)="openObjectiveDiaolog(mission)">
+                                        <i class="fa fa-trophy"></i>
+                                    </button>
+                                  </td>
+                                   
+                                </tr>
+                               
+                            </tbody>
+                          </table> 
+                          <div class="d-flex justify-content-center">
+                              <pagination-controls 
+                               
+                                previousLabel="Prev" 
+                                nextLabel="Next" 
+                                (pageChange)="onTableDataChange($event)">
+                              </pagination-controls>
+                            </div>
+                      </div>
+                  </div>
+                  <!-- END DEFAULT DATATABLE -->
+              </div>
+            </div>
+          </section>
+        </mat-tab>
+  
+      </mat-tab-group>
+    </div>
+  
+    <!-- /.content-wrapper -->
+    <app-footer-component></app-footer-component>
+  </div>

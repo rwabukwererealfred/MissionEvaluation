@@ -1,0 +1,72 @@
+<form>
+<div class="register-box" style="width: 50%; background-color:dodgerblue">
+    <div class="register-logo">
+        <a href="#"><b style="color: white;">Online Mission Evaluation</b></a>
+    </div>
+
+    <div class="card">
+            <div class="alert alert-primary" role="alert" *ngIf="success">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                       well successful registered
+                    </div>
+                    <div class="alert alert-danger" role="alert" *ngIf="fail">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                           failed: {{failedMessage}}
+                          </div>
+        <div class="card-body register-card-body">
+            <p class="login-box-msg">Register a new Account</p>
+
+            <form method="post">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                            <input type="text" class="form-control" placeholder="National ID" [(ngModel)]="user.userId" name="userId">
+                            <span class="fa fa-user form-control-feedback"> National ID</span>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                            <input type="text" class="form-control" placeholder="Username" [(ngModel)]="user.username" name="username">
+                            <span class="fa fa-envelope form-control-feedback"> Username</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                            <input type="password" class="form-control" placeholder="Password" [(ngModel)]="user.password" name="password">
+                            <span class="fa fa-lock form-control-feedback"> Password</span>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="form-group has-feedback">
+                            <input type="password" class="form-control" placeholder="Retype password" [(ngModel)]="retypePassword" name="retypePassword">
+                            <span class="fa fa-lock form-control-feedback"> Retype password</span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="social-auth-links text-center">
+                      <button  class="btn btn-block btn-primary" (click)="createAccount()"><i class="fa fa-facebook mr-2"></i>
+                        Sign up</button>
+                       
+                        
+                    </div>
+            </form>
+
+           
+
+            <a href="/login" class="text-center" routerLink="/login">I already have an account</a>
+        </div>
+        <!-- /.form-box -->
+    </div><!-- /.card -->
+</div>
+<!-- /.register-box -->
+</form>
+<!-- jQuery -->
+<script src="../assets/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="../assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- iCheck -->
+<script src="../assets/plugins/iCheck/icheck.min.js"></script>

@@ -1,0 +1,275 @@
+<div class="wrapper">
+        <app-header-component></app-header-component>
+        <app-sidebar></app-sidebar>
+        <div class="content-wrapper">
+          <!-- Content Header (Page header) -->
+          <section class="content-header">
+            <div class="container-fluid">
+              <div class="row mb-2">
+                <div class="col-sm-6">
+                  <h1>Mission Registration Info</h1>
+                </div>
+               
+              </div>
+            </div><!-- /.container-fluid -->
+          </section>
+      
+          <!-- Main content -->
+      
+          <!-- /.content -->
+          <div class="alert alert-primary" role="alert" *ngIf="successMessage">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+               well successful registered
+            </div>
+            <div class="alert alert-danger" role="alert" *ngIf="failMessage">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                   failed: {{failedMessage}}
+                  </div>
+
+          <mat-tab-group mat-align-tabs="end">
+            <mat-tab label="Mission Fundings">
+              <section class="content">
+                <div class="container-fluid">
+                  <!-- SELECT2 EXAMPLE -->
+                  <div class="card card-primary">
+                    <div class="card-header">
+                      <h3 class="card-title">Fundings Registration</h3>
+      
+                      <div class="card-tools">
+                        <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                      </div>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-4">
+                          <div class="form-group has-feedback">
+                            <label>Funding Title</label>
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fa fa-user-circle-o"></i></span>
+                              </div>
+                              <input type="text" class="form-control" placeholder="Funding Title" [(ngModel)]="fund.title">
+                            </div>
+      
+                          </div> 
+                          
+                          <div class="form-group has-feedback">
+                                <label>Price</label>
+                                <div class="input-group">
+                                  <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fa fa-user-circle-o"></i></span>
+                                  </div>
+                                  <input type="number" class="form-control" placeholder="Price" [(ngModel)]="fund.price">
+                                </div>
+          
+                            </div> 
+                            <div class="form-group">
+                              <input type="button" class="btn btn-primary" style="width: 100%;" value="Save" (click)="saveFundings()">
+                            
+                          </div>
+                        </div>
+                        <div class="col-md-1">
+                        </div>
+                        
+                        <div class="col-md-7">
+                                <div class="row">
+                                        <div class="col-md-9">
+                                            <div class="form-group" style="width: 60%;">
+                                                <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="filterTerm">
+                                              </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                          
+                                        <div class="d-flex flex-row-reverse bd-highlight mb-2">
+                                            
+                                            <div class="p-2 bd-highlight">
+                                              <select (change)="onTableSizeChange($event)" class="custom-select">
+                                                <option *ngFor="let size of tableSizes" [ngValue]="size">
+                                                  {{ size }}
+                                                </option>
+                                              </select>
+                                            </div>
+                                          </div>
+                                          </div>
+                                      </div>
+                                        
+                                        <table class="table datatable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Funding Title</th>
+                                                    <th>Price</th>
+                                                    
+                                                    <th>Option</th>
+                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr *ngFor="let fundingsMission of fundings| filter:filterTerm | paginate : {
+                                                  itemsPerPage: tableSize,
+                                                  currentPage: page,
+                                                  totalItems: count
+                                                }; ">
+                                                    <td>{{fundingsMission.title}}</td>
+                                                    <td>{{fundingsMission.price}}</td>
+                                                  
+                                                    <td>
+                                                      <button type="button" class="btn btn-primary" title="Edit"><i class="fa fa-edit"></i></button>&nbsp;
+                                                      <button type="button" class="btn btn-danger" title="Remove"><i class="fa fa-close"></i></button>
+                                                      
+                                                    </td>
+                                                   
+                                                </tr>
+                                               
+                                            </tbody>
+                                        </table> 
+                                        <div class="d-flex justify-content-center">
+                                            <pagination-controls 
+                                             
+                                              previousLabel="Prev" 
+                                              nextLabel="Next" 
+                                              (pageChange)="onTableDataChange($event)">
+                                            </pagination-controls>
+                                          </div>
+                        </div>
+                        
+                        
+                        <!-- /.col -->
+                      </div>
+                      <!-- /.row -->
+                    </div>
+      
+                  </div>
+                  <!-- /.card -->
+      
+                  <!-- /.row -->
+                </div><!-- /.container-fluid -->
+      
+              </section>
+            </mat-tab>
+            <mat-tab label="Mission Details">
+              <section class="content">
+                <div class="row">
+                  <div class="col-12">
+                      <div class="card card-primary">
+                          
+                          <div class="card-header">
+                              <h3 class="card-title">Mission Details</h3>
+              
+                              <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                              </div>
+                            </div>
+                          <div class="card-body">
+                              <div class="row">
+                                  <div class="col-md-4">
+                                    <div class="form-group has-feedback">
+                                      <label>Mission Subject</label>
+                                      <div class="input-group">
+                                        <div class="input-group-prepend">
+                                          <span class="input-group-text"><i class="fa fa-user-circle-o"></i></span>
+                                        </div>
+                                        <input type="text" class="form-control" placeholder="Mission Subject" [(ngModel)]="detail.subject">
+                                      </div>
+                
+                                    </div> 
+                                    
+                                    <div class="form-group has-feedback">
+                                          <label>Description</label>
+                                          <div class="input-group">
+                                            <div class="input-group-prepend">
+                                              <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                                            </div>
+                                           
+                                            <textarea cols="5" rows="6" class="form-control" [(ngModel)]="detail.description" placeholder="Description"></textarea>
+                                          </div>
+                    
+                                      </div> 
+                                      <div class="form-group">
+                                        <input type="button" class="btn btn-primary" style="width: 100%;" value="Save" (click)="saveMissionObjectif()">
+                                      
+                                    </div>
+                                  </div>
+                                  <div class="col-md-1">
+                                  </div>
+                                  
+                                  <div class="col-md-7">
+                                          <div class="row">
+                                                  <div class="col-md-9">
+                                                      <div class="form-group" style="width: 60%;">
+                                                          <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="filterTerm1">
+                                                        </div>
+                                                  </div>
+                                                  <div class="col-md-3">
+                                                    
+                                                  <div class="d-flex flex-row-reverse bd-highlight mb-2">
+                                                      
+                                                      <div class="p-2 bd-highlight">
+                                                        <select (change)="onTableSizeChange($event)" class="custom-select">
+                                                          <option *ngFor="let size of tableSizes" [ngValue]="size">
+                                                            {{ size }}
+                                                          </option>
+                                                        </select>
+                                                      </div>
+                                                    </div>
+                                                    </div>
+                                                </div>
+                                                  
+                                                  <table class="table datatable">
+                                                      <thead>
+                                                          <tr>
+                                                              <th>Mission Subject</th>
+                                                              <th>Description</th>
+                                                              
+                                                              <th>Option</th>
+                                                              
+                                                          </tr>
+                                                      </thead>
+                                                      <tbody>
+                                                          <tr *ngFor="let details of missionDetails| filter:filterTerm1 | paginate : {
+                                                            itemsPerPage: tableSize,
+                                                            currentPage: page,
+                                                            totalItems: count
+                                                          }; ">
+                                                              <td>{{details.subject}}</td>
+                                                              <td>{{details.description}}</td>
+                                                            
+                                                              <td>
+                                                                <button type="button" class="btn btn-primary" title="Edit"><i class="fa fa-edit"></i></button>&nbsp;
+                                                                <button type="button" class="btn btn-danger" title="Remove"><i class="fa fa-close"></i></button>
+                                                                
+                                                              </td>
+                                                             
+                                                          </tr>
+                                                         
+                                                      </tbody>
+                                                  </table> 
+                                                  <div class="d-flex justify-content-center">
+                                                      <pagination-controls 
+                                                       
+                                                        previousLabel="Prev" 
+                                                        nextLabel="Next" 
+                                                        (pageChange)="onTableDataChange($event)">
+                                                      </pagination-controls>
+                                                    </div>
+                                  </div>
+                                  
+                                  
+                                  <!-- /.col -->
+                                </div>
+                          </div>
+                      </div>
+                      <!-- END DEFAULT DATATABLE -->
+                  </div>
+                </div>
+              </section>
+            </mat-tab>
+      
+          </mat-tab-group>
+        </div>
+      
+        <!-- /.content-wrapper -->
+        <app-footer-component></app-footer-component>
+      </div>

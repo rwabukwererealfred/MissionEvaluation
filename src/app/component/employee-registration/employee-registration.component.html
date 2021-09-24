@@ -1,0 +1,244 @@
+<div class="wrapper">
+  <app-header-component></app-header-component>
+  <app-sidebar></app-sidebar>
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+       
+         <div class="card">
+             <div class="card-header" style="background-color:  cornflowerblue; font-weight: bold; height: 100%; color: white;" >
+                  <i class="fa fa-home"></i> Employee Registration Form
+             </div>
+         </div>
+        
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <div class="alert alert-primary" role="alert" *ngIf="success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+           well successful registered
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="fail">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+               failed: {{failedMessage}}
+              </div>
+    <mat-tab-group mat-align-tabs="end">
+      <mat-tab label="Employee Registration">
+        <section class="content">
+          <div class="container-fluid">
+            <!-- SELECT2 EXAMPLE -->
+            <div class="card card-primary">
+              <div class="card-header">
+                <h3 class="card-title">Registration</h3>
+
+                <div class="card-tools">
+                  <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                  <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                </div>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group has-feedback">
+                      <label>National ID</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa fa-user-circle-o"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="National ID" [(ngModel)]="employee.natinalityID">
+                      </div>
+
+                    </div>
+
+                    <!-- /.form-group -->
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-md-6">
+
+                    <div class="form-group has-feedback">
+                      <label>First Name</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa fa-address-book-o"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="First Name" [(ngModel)]="employee.firstName">
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+
+                    <div class="form-group has-feedback">
+                      <label>Last Name</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa fa-address-card"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Last Name" [(ngModel)]="employee.lastName">
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+
+                    <div class="form-group has-feedback">
+                      <label>Email</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa fa-envelope"></i></span>
+                        </div>
+                        <input type="email" class="form-control" placeholder="Email" [(ngModel)]="employee.email">
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+
+                    <div class="form-group has-feedback">
+                      <label>Phone Number</label>
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"><i class="fa fa-phone"></i></span>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Phone Number" [(ngModel)]="employee.phoneNumber">
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label>Date of birth</label>
+
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text">
+                            <i class="fa fa-calendar"></i>
+                          </span>
+                        </div>
+                        <input type="date" class="form-control float-right" [(ngModel)]="employee.dateofbirth">
+                      </div>
+                      <!-- /.input group -->
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                  <div class="form-group">
+                    <label>Employee Role</label>
+                    <select class="form-control" [(ngModel)]="role" name="name">
+                      <option disabled value="">Select Role</option>
+                      <option value="ADVISOR">Advisor</option>
+                      <option value="EMPLOYEE">Employee</option>
+                      
+                    </select>
+                  </div>
+                  </div>
+                  
+                  <!-- /.col -->
+                </div>
+                
+                    <div class="form-group">
+                        <input type="button" class="btn btn-primary" style="width: 100%;" value="Register" (click)="registerEmployee()">
+                      
+                      <!-- /.input group -->
+                    </div>
+                 
+                <!-- /.row -->
+              </div>
+
+            </div>
+            <!-- /.card -->
+
+            <!-- /.row -->
+          </div><!-- /.container-fluid -->
+
+        </section>
+      </mat-tab>
+      <mat-tab label="Employee List">
+        <section class="content">
+          <div class="row">
+            <div class="col-12">
+                <div class="card card-primary">
+                    
+                    <div class="card-header">
+                        <h3 class="card-title">Employee List</h3>
+        
+                        <div class="card-tools">
+                          <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                          <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                        </div>
+                      </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-md-9">
+                            <div class="form-group" style="width: 60%;">
+                                <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="filterTerm">
+                              </div>
+                        </div>
+                        <div class="col-md-3">
+                          
+                        <div class="d-flex flex-row-reverse bd-highlight mb-2">
+                            
+                            <div class="p-2 bd-highlight">
+                              <select (change)="onTableSizeChange($event)" class="custom-select">
+                                <option *ngFor="let size of tableSizes" [ngValue]="size">
+                                  {{ size }}
+                                </option>
+                              </select>
+                            </div>
+                          </div>
+                          </div>
+                      </div>
+                        
+                        <table class="table datatable">
+                            <thead>
+                                <tr>
+                                    <th>National Id</th>
+                                    <th>First Name</th>
+                                    <th>Last Name</th>
+                                    <th>Phone Number</th>
+                                    <th>Email</th>
+                                    <th>Date Of Birth</th>
+                                    <th>Role</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let emp of employees | filter:filterTerm | paginate : {
+                                  itemsPerPage: tableSize,
+                                  currentPage: page,
+                                  totalItems: count
+                                }; ">
+                                    <td>{{emp.natinalityID}}</td>
+                                    <td>{{emp.firstName}}</td>
+                                    <td>{{emp.lastName}}</td>
+                                    <td>{{emp.phoneNumber}}</td>
+                                    <td>{{emp.email}}</td>
+                                    <td>{{emp.dateofbirth | date:'dd-MMM-yyyy'}}</td>
+                                    <td><h6 style="background-color:royalblue; border-radius: 5px; color: white;
+                                    text-align: center;">{{emp.role.name}}</h6></td>
+                                </tr>
+                               
+                            </tbody>
+                        </table> 
+                        <div class="d-flex justify-content-center">
+                            <pagination-controls 
+                             
+                              previousLabel="Prev" 
+                              nextLabel="Next" 
+                              (pageChange)="onTableDataChange($event)">
+                            </pagination-controls>
+                          </div>
+                    </div>
+                </div>
+                <!-- END DEFAULT DATATABLE -->
+            </div>
+          </div>
+        </section>
+      </mat-tab>
+
+    </mat-tab-group>
+  </div>
+
+  <!-- /.content-wrapper -->
+  <app-footer-component></app-footer-component>
+</div>

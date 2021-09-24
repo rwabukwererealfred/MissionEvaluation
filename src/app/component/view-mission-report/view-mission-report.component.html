@@ -1,0 +1,96 @@
+<div class="wrapper" style="margin-left: 15px;">
+    <app-header-component></app-header-component>
+    <app-sidebar></app-sidebar>
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+          <div class="row mb-2">
+            <div class="col-sm-6">
+              <h1>Mission Report Form</h1>
+            </div>
+            <div class="col-sm-6">
+              <ol class="breadcrumb float-sm-right">
+                
+                <li class="breadcrumb-item active">Mission Report Form</li>
+              </ol>
+            </div>
+          </div>
+        </div><!-- /.container-fluid -->
+      </section>
+  
+            <section class="content">
+                <div class="row">
+                  <div class="col-12">
+                      <div class="card card-primary">
+                          
+                          <div class="card-header">
+                              <h3 class="card-title">Mission Reported</h3>
+              
+                              <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+                              </div>
+                            </div>
+                          <div class="card-body">
+                            <div class="row">
+                              <div class="col-md-9">
+                                  <div class="form-group" style="width: 60%;">
+                                      <input type="text" class="form-control" placeholder="Search..." [(ngModel)]="filterTerm">
+                                    </div>
+                              </div>
+                              
+                            </div>
+                              
+                            <table class="table datatable">
+                                <thead>
+                                  <tr>
+                                    <th>Subject</th>
+                                    <th>Report Date</th>
+                                    <th>Reported By</th>
+                                    <th>Reported To</th>
+                                    <th>Comment</th>
+                                    <th>Add Comment</th>
+                                    <th>File</th>
+                                    <th>Description</th>
+                                    
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let report of reportList | filter:filterTerm">
+                                      <td>{{report.missionObjectif}}</td>
+                                      <td>{{report.sendDate | date:'dd-MMM-yyyy'}}</td>
+                                      <td>{{report.employeeMission.employee.firstName}} {{report.employeeMission.employee.lastName}} ({{report.employeeMission.employee.role.name}})</td>
+                                      <td>{{report.employee.firstName}} {{report.employee.lastName}} ({{report.employee.role.name}})</td>
+                                      <td [innerHTML]="report.advisorComment">{{report.advisorComment}}</td>
+                                      <td> 
+                                          <button class="btn btn-success" title="Add Comment"
+                                          (click)="addCommentDiaolog(report)">
+                                            <i class="fa fa-comment"></i>
+                                        </button>
+                                        </td>
+                                      <td *ngIf="report.file != null">
+                                        <button type="button" class="btn btn-primary" (click)="readFile(report.file)">
+                                          <i class="fa fa-download"></i>
+                                        </button>
+                                      </td>
+                                      <td> 
+                                        <button type="button" class="btn btn-success" (click)="openCommentDialog(report)"> View</button>
+                                      </td>
+                                  </tr>
+                  
+                                </tbody>
+                              </table>
+                              
+                          </div>
+                      </div>
+                      <!-- END DEFAULT DATATABLE -->
+                  </div>
+                </div>
+              </section>
+        
+    </div>
+  
+    <!-- /.content-wrapper -->
+    <app-footer-component></app-footer-component>
+  </div>

@@ -1,0 +1,112 @@
+<div class="wrapper">
+    <app-header-component></app-header-component>
+    <app-sidebar></app-sidebar>
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <section class="content-header">
+        <div class="container-fluid">
+         
+           <div class="card">
+               <div class="card-header" style="background-color:  cornflowerblue; font-weight: bold; height: 100%; color: white;" >
+                    <i class="fa fa-home"></i> Employee Mission Report
+               </div>
+           </div>
+          
+        </div><!-- /.container-fluid -->
+      </section>
+      <div class="row" style="margin-left: 10px;">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header" style="background-color: dodgerblue; font-weight: bold;">
+                    Date between Mission Report
+                </div>
+                <div class="row" style="margin-top: 40px; margin-left: 5px;">
+                    <div class="col-md-5">
+                      <div class="form-group has-feedback">
+                        <label>Start Date</label>
+                        <div class="input-group">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"> <i class="fa fa-calendar"></i></span>
+                          </div>
+                          <input type="date" class="form-control" placeholder="Start Date" [(ngModel)]="startDate" name="startDate">
+                        </div>
+  
+                      </div>
+  
+                      <!-- /.form-group -->
+                    </div>
+                    <div class="col-md-5">
+                        <div class="form-group has-feedback">
+                          <label>End Date</label>
+                          <div class="input-group">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text"> <i class="fa fa-calendar"></i></span>
+                            </div>
+                            <input type="date" class="form-control" placeholder="End Date" [(ngModel)]="endDate" name="endDate">
+                          </div>
+    
+                        </div>
+                        
+                        <!-- /.form-group -->
+                      </div>
+                      <div class="col-md-2">
+                          
+                                    <div class="form-group has-feedback">
+                                      <label>   </label>
+                                      <div class="input-group" style="margin-top: 6px;">
+                                       <button class="btn btn-primary" (click)="generateReport()">
+                                           <i class="fa fa-print"></i>
+                                       </button>
+                                      </div>
+                
+                                    </div>
+                                    
+                                    <!-- /.form-group -->
+                                 
+                    </div>
+                    </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+                <div class="card" >
+                        <div class="card-header" style="background-color: dodgerblue; font-weight: bold;">
+                            Report of Employee Participated to Selected Mission
+                        </div>
+                        <div class="row" style="margin-top: 40px; margin-left: 5px;">
+                                <div class="col-md-6">
+                                        <div class="form-group">
+                                          <label>Mission List</label>
+                                          <select class="form-control"  name="missionId" [(ngModel)]="missionId">
+                                            <option disabled selected value="">Select Mission</option>
+                                            <option *ngFor="let mission of missions" [value]="mission.id">{{mission.title}}</option>
+                                          </select>
+                                        </div>
+                                        </div>
+                            
+                              <div class="col-md-2">
+                                  
+                                            <div class="form-group has-feedback">
+                                              <label>   </label>
+                                              <div class="input-group" style="margin-top: 6px;">
+                                               <button class="btn btn-primary" (click)="generateEmployeeReport()">
+                                                   <i class="fa fa-print"></i>
+                                               </button>
+                                              </div>
+                        
+                                            </div>
+                                            
+                                            <!-- /.form-group -->
+                                         
+                            </div>
+                            </div>
+                    </div>
+        </div>
+        
+      </div>
+     
+  
+    </div>
+  
+    <!-- /.content-wrapper -->
+    <app-footer-component></app-footer-component>
+  </div>
